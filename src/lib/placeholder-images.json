@@ -1,0 +1,118 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "A romantic couple enjoying a sunset.",
+      "imageUrl": "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb3VwbGUlMjBzdW5zZXR8ZW58MHx8fHwxNzcwNjQzMjQ1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "couple sunset"
+    },
+    {
+      "id": "why-us",
+      "description": "Two people having a pleasant conversation over coffee.",
+      "imageUrl": "https://images.unsplash.com/photo-1714030962154-e9fb029ab9df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwZW9wbGUlMjBjb2ZmZWV8ZW58MHx8fHwxNzcwNTQ3NzAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "people coffee"
+    },
+    {
+      "id": "success-1",
+      "description": "A happy couple laughing together outdoors.",
+      "imageUrl": "https://images.unsplash.com/photo-1541089404510-5c9a779841fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoYXBweSUyMGNvdXBsZXxlbnwwfHx8fDE3NzA1ODczNjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "happy couple"
+    },
+    {
+      "id": "success-2",
+      "description": "A couple walking hand-in-hand on a beach.",
+      "imageUrl": "https://images.unsplash.com/photo-1623137285582-8a3608b5ff09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb3VwbGUlMjBiZWFjaHxlbnwwfHx8fDE3NzA1NTMyNDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "couple beach"
+    },
+    {
+      "id": "success-3",
+      "description": "A couple sharing a meal at a nice restaurant.",
+      "imageUrl": "https://images.unsplash.com/photo-1688513103472-02b9c803d330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb3VwbGUlMjByZXN0YXVyYW50fGVufDB8fHx8MTc3MDY0MzI0NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "couple restaurant"
+    },
+    {
+      "id": "testimonial-1",
+      "description": "A smiling woman.",
+      "imageUrl": "https://images.unsplash.com/photo-1618938700817-fe48bd93f20b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzbWlsaW5nJTIwd29tYW58ZW58MHx8fHwxNzcwNjE4MjkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smiling woman"
+    },
+    {
+      "id": "testimonial-2",
+      "description": "A smiling man.",
+      "imageUrl": "https://images.unsplash.com/photo-1562124638-724e13052daf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c21pbGluZyUyMG1hbnxlbnwwfHx8fDE3NzA2Mzg1NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smiling man"
+    },
+    {
+      "id": "testimonial-3",
+      "description": "A person smiling.",
+      "imageUrl": "https://images.unsplash.com/photo-1662850886700-4ec19bd30d11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwZXJzb24lMjBzbWlsaW5nfGVufDB8fHx8MTc3MDU2NTcyNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person smiling"
+    },
+    {
+      "id": "profile-1",
+      "description": "Portrait of a woman.",
+      "imageUrl": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MDY0Mjg1OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "profile-2",
+      "description": "Portrait of a man.",
+      "imageUrl": "https://images.unsplash.com/photo-1607031542107-f6f46b5d54e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzA2Mjg2Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "profile-3",
+      "description": "Portrait of a person.",
+      "imageUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzA1ODUyMzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "profile-4",
+      "description": "Portrait of a woman smiling.",
+      "imageUrl": "https://images.unsplash.com/photo-1598625873873-52f9aefd7d9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx3b21hbiUyMHNtaWxpbmd8ZW58MHx8fHwxNzcwNTM4MDUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman smiling"
+    },
+    {
+      "id": "profile-5",
+      "description": "Portrait of a man smiling.",
+      "imageUrl": "https://images.unsplash.com/photo-1656338997878-279d71d48f6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtYW4lMjBzbWlsaW5nfGVufDB8fHx8MTc3MDU4Mzc3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man smiling"
+    },
+    {
+      "id": "profile-6",
+      "description": "Portrait of a person laughing.",
+      "imageUrl": "https://images.unsplash.com/photo-1573515159471-0eb7ec72912c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwZXJzb24lMjBsYXVnaGluZ3xlbnwwfHx8fDE3NzA2MzUwNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person laughing"
+    },
+    {
+      "id": "user-avatar",
+      "description": "Avatar of the logged-in user.",
+      "imageUrl": "https://images.unsplash.com/photo-1557053908-4793c484d06f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8d29tYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzA2NDI4NTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "about-mission",
+      "description": "A path leading towards a heart-shaped tree.",
+      "imageUrl": "https://images.unsplash.com/photo-1669777054931-b9b8fe8580ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwYXRoJTIwdHJlZXxlbnwwfHx8fDE3NzA2NDMyNDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "path tree"
+    },
+    {
+      "id": "about-team",
+      "description": "A diverse group of smiling professionals.",
+      "imageUrl": "https://images.unsplash.com/photo-1522602043785-821a161a5238?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0ZWFtJTIwcHJvZmVzc2lvbmFsc3xlbnwwfHx8fDE3NzA2NDMyNDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "team professionals"
+    },
+    {
+      "id": "how-it-works-visual",
+      "description": "An abstract visual representing a journey or timeline.",
+      "imageUrl": "https://images.unsplash.com/photo-1759596351320-e631fcc99229?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMGpvdXJuZXl8ZW58MHx8fHwxNzcwNjQzMjQ1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract journey"
+    },
+    {
+      "id": "contact-hero",
+      "description": "An old-fashioned mailbox with letters.",
+      "imageUrl": "https://images.unsplash.com/photo-1662037955115-3aed23bba6b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtYWlsYm94JTIwbGV0dGVyc3xlbnwwfHx8fDE3NzA2NDMyNDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mailbox letters"
+    }
+  ]
+}
