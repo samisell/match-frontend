@@ -8,34 +8,35 @@ import { CheckCircle2, Heart, Users, ShieldCheck } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { successStories, howItWorksSteps, whyChooseUsPoints, testimonials, pricingPlans, featuredProfiles } from '@/lib/data';
+import { successStories, howItWorksSteps, whyChooseUsPoints, testimonials, featuredProfiles } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function Home() {
-  const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
+  // const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative bg-secondary/50 py-20 md:py-32">
-          <div className="absolute inset-0">
-             {heroImage && <Image
-              src={heroImage.imageUrl}
-              alt={heroImage.description}
+        <section className="relative bg-secondary/50 py-20 md:py-32 min-h-[600px] flex items-center">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=2544&auto=format&fit=crop"
+              alt="Happy couple holding hands outdoors"
               fill
-              className="object-cover opacity-20"
+              className="object-cover"
               priority
-              data-ai-hint={heroImage.imageHint}
-            />}
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+              unoptimized
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
           </div>
-          <div className="container mx-auto px-4 relative text-center">
-            <h1 className="text-4xl md:text-6xl font-headline font-bold text-foreground mb-4 leading-tight">
+          <div className="container mx-auto px-4 relative z-10 text-center text-white">
+            <h1 className="text-4xl md:text-6xl font-headline font-bold mb-4 leading-tight drop-shadow-md">
               Meaningful Matches. <br /> Curated With Care.
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8 drop-shadow-sm">
               Tired of endless swiping? Discover a new approach to finding love. We personally vet and match profiles based on deep compatibility.
             </p>
             <div className="flex justify-center gap-4">
@@ -115,7 +116,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        
+
         {/* Matches Carousel Section */}
         {featuredProfiles.length > 0 && (
           <section id="featured-profiles" className="py-20">
@@ -129,34 +130,35 @@ export default function Home() {
                   {featuredProfiles.map((profile, index) => {
                     const profileImage = PlaceHolderImages.find(p => p.id === profile.imageId);
                     return (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="p-1">
-                        <Card className="overflow-hidden h-full flex flex-col">
-                          <CardHeader className="p-0">
-                            <div className="relative aspect-[4/3] w-full">
-                              {profileImage && <Image
-                                src={profileImage.imageUrl}
-                                alt={profileImage.description}
-                                fill
-                                className="object-cover"
-                                data-ai-hint={profileImage.imageHint}
-                              />}
-                            </div>
-                          </CardHeader>
-                          <CardContent className="p-6 flex-grow">
-                            <h3 className="text-xl font-bold font-headline">{profile.name}, {profile.age}</h3>
-                            <p className="text-muted-foreground">{profile.location}</p>
-                            <p className="mt-2 text-sm italic">"{profile.quote}"</p>
-                          </CardContent>
-                          <CardFooter>
+                      <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                        <div className="p-1">
+                          <Card className="overflow-hidden h-full flex flex-col">
+                            <CardHeader className="p-0">
+                              <div className="relative aspect-[4/3] w-full">
+                                {profileImage && <Image
+                                  src={profileImage.imageUrl}
+                                  alt={profileImage.description}
+                                  fill
+                                  className="object-cover"
+                                  data-ai-hint={profileImage.imageHint}
+                                />}
+                              </div>
+                            </CardHeader>
+                            <CardContent className="p-6 flex-grow">
+                              <h3 className="text-xl font-bold font-headline">{profile.name}, {profile.age}</h3>
+                              <p className="text-muted-foreground">{profile.location}</p>
+                              <p className="mt-2 text-sm italic">"{profile.quote}"</p>
+                            </CardContent>
+                            <CardFooter>
                               <Button variant="link" className="p-0">
                                 <Link href="/register">Learn More & Join</Link>
                               </Button>
-                          </CardFooter>
-                        </Card>
-                      </div>
-                    </CarouselItem>
-                  )})}
+                            </CardFooter>
+                          </Card>
+                        </div>
+                      </CarouselItem>
+                    )
+                  })}
                 </CarouselContent>
                 <CarouselPrevious className="hidden md:inline-flex" />
                 <CarouselNext className="hidden md:inline-flex" />
@@ -176,70 +178,31 @@ export default function Home() {
               {successStories.map((story, index) => {
                 const storyImage = PlaceHolderImages.find(p => p.id === story.imageId);
                 return (
-                <Card key={index} className="overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                  {storyImage && <div className="aspect-video relative">
-                    <Image
-                      src={storyImage.imageUrl}
-                      alt={storyImage.description}
-                      fill
-                      className="object-cover"
-                      data-ai-hint={storyImage.imageHint}
-                    />
-                  </div>}
-                  <CardHeader>
-                    <CardTitle className="font-headline">{story.names}</CardTitle>
-                    <CardDescription>Matched on {story.matchedDate}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground italic">"{story.quote}"</p>
-                  </CardContent>
-                </Card>
-              )})}
+                  <Card key={index} className="overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                    {storyImage && <div className="aspect-video relative">
+                      <Image
+                        src={storyImage.imageUrl}
+                        alt={storyImage.description}
+                        fill
+                        className="object-cover"
+                        data-ai-hint={storyImage.imageHint}
+                      />
+                    </div>}
+                    <CardHeader>
+                      <CardTitle className="font-headline">{story.names}</CardTitle>
+                      <CardDescription>Matched on {story.matchedDate}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground italic">"{story.quote}"</p>
+                    </CardContent>
+                  </Card>
+                )
+              })}
             </div>
           </div>
         </section>
 
-        {/* Membership / Pricing Section */}
-        <section id="pricing" className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12 max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-headline font-bold">Invest in a Real Relationship</h2>
-              <p className="text-lg text-muted-foreground mt-2">
-                Our pricing reflects the personalized, high-touch service we provide. No hidden fees, just a clear path to finding your partner.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {pricingPlans.map((plan, index) => (
-                <Card key={index} className={`flex flex-col ${plan.featured ? 'border-primary ring-2 ring-primary shadow-2xl' : ''}`}>
-                  {plan.featured && <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-sm font-bold">Most Popular</Badge>}
-                  <CardHeader className="text-center">
-                    <CardTitle className="text-2xl font-headline">{plan.title}</CardTitle>
-                    <CardDescription>{plan.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <div className="text-center mb-6">
-                      <span className="text-5xl font-bold">${plan.price}</span>
-                      <span className="text-muted-foreground">/{plan.period}</span>
-                    </div>
-                    <ul className="space-y-4">
-                      {plan.features.map((feature, fIndex) => (
-                        <li key={fIndex} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 shrink-0" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                  <CardFooter>
-                    <Button asChild className={`w-full font-bold ${plan.featured ? '' : 'bg-primary/80'}`} variant={plan.featured ? 'default' : 'secondary'}>
-                      <Link href="/register">Get Started</Link>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
+
 
         {/* Testimonials */}
         <section id="testimonials" className="bg-secondary/50 py-20">

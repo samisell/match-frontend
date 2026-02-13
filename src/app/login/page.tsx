@@ -24,30 +24,34 @@ const formSchema = z.object({
 });
 
 export default function LoginPage() {
-    const router = useRouter();
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-        email: '',
-        password: '',
-        },
-    });
+  const router = useRouter();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // This is a frontend-only demo.
-        // In a real app, you'd make an API call to authenticate the user.
-        console.log(values);
-        // Redirect to dashboard on successful "login".
-        router.push('/dashboard');
-    }
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // This is a frontend-only demo.
+    // In a real app, you'd make an API call to authenticate the user.
+    console.log(values);
+    // Redirect to dashboard on successful "login".
+    router.push('/dashboard');
+  }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-secondary/50 p-4">
-      <Card className="w-full max-w-md shadow-xl">
+    <div
+      className="relative flex min-h-screen items-center justify-center bg-cover bg-center p-4"
+      style={{ backgroundImage: "url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=2544&auto=format&fit=crop')" }}
+    >
+      <div className="absolute inset-0 bg-black/40" />
+      <Card className="relative z-10 w-full max-w-md shadow-xl border-0 bg-background/95 backdrop-blur-sm">
         <CardHeader className="text-center">
-            <div className="mx-auto mb-4">
-                <Logo inHeader />
-            </div>
+          <div className="mx-auto mb-4">
+            <Logo inHeader />
+          </div>
           <CardTitle className="text-2xl font-bold font-headline">Welcome Back</CardTitle>
           <CardDescription>Enter your credentials to access your account.</CardDescription>
         </CardHeader>
@@ -80,10 +84,10 @@ export default function LoginPage() {
                   </FormItem>
                 )}
               />
-               <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between">
                 <div />
                 <Button variant="link" asChild className="px-0 h-auto">
-                    <Link href="#">Forgot password?</Link>
+                  <Link href="/forgot-password">Forgot password?</Link>
                 </Button>
               </div>
               <Button type="submit" className="w-full">

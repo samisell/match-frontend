@@ -34,40 +34,44 @@ const formSchema = z.object({
 });
 
 export default function RegisterPage() {
-    const router = useRouter();
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        terms: false,
-        },
-    });
+  const router = useRouter();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      terms: false,
+    },
+  });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // This is a frontend-only demo.
-        // In a real app, you'd register the user and then log them in.
-        console.log(values);
-        // Redirect to profile setup after "registration".
-        router.push('/dashboard/profile');
-    }
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // This is a frontend-only demo.
+    // In a real app, you'd register the user and then log them in.
+    console.log(values);
+    // Redirect to profile setup after "registration".
+    router.push('/dashboard/profile');
+  }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-secondary/50 p-4 py-8">
-      <Card className="w-full max-w-md shadow-xl">
+    <div
+      className="relative flex min-h-screen items-center justify-center bg-cover bg-center p-4 py-8"
+      style={{ backgroundImage: "url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=2544&auto=format&fit=crop')" }}
+    >
+      <div className="absolute inset-0 bg-black/40" />
+      <Card className="relative z-10 w-full max-w-md shadow-xl border-0 bg-background/95 backdrop-blur-sm">
         <CardHeader className="text-center">
-           <div className="mx-auto mb-4">
-                <Logo inHeader />
-            </div>
+          <div className="mx-auto mb-4">
+            <Logo inHeader />
+          </div>
           <CardTitle className="text-2xl font-bold font-headline">Create an Account</CardTitle>
           <CardDescription>Join our community of individuals seeking meaningful connections.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-               <FormField
+              <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
@@ -119,7 +123,7 @@ export default function RegisterPage() {
                   </FormItem>
                 )}
               />
-               <FormField
+              <FormField
                 control={form.control}
                 name="terms"
                 render={({ field }) => (
@@ -137,7 +141,7 @@ export default function RegisterPage() {
                       <FormDescription>
                         You agree to our <Link href="/terms" className="text-primary hover:underline">Terms of Service</Link> and <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>.
                       </FormDescription>
-                       <FormMessage />
+                      <FormMessage />
                     </div>
                   </FormItem>
                 )}
