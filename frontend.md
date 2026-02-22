@@ -51,16 +51,63 @@ The API uses token-based authentication (Laravel Sanctum). To access protected r
         "access_token": "1|xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "token_type": "Bearer",
         "user": {
+            "id": 1,
             "name": "John Doe",
             "email": "john.doe@example.com",
-            "updated_at": "2026-02-10T01:00:00.000000Z",
+            "is_admin": false,
+            "email_verified_at": null,
+            "is_verified": false,
             "created_at": "2026-02-10T01:00:00.000000Z",
-            "id": 1
-        }
+            "updated_at": "2026-02-10T01:00:00.000000Z"
+        },
+        "message": "Registration successful. Please check your email for the OTP."
     }
     ```
 
-### 2. Login
+### 2. Verify OTP
+
+*   **Endpoint:** `POST /verify-otp` (or `POST /verify-email`)
+*   **Headers:**
+    *   `Accept: application/json`
+*   **Body (raw, JSON):**
+
+    ```json
+    {
+        "email": "john.doe@example.com",
+        "otp": "123456"
+    }
+    ```
+
+*   **Successful Response (200 OK):**
+
+    ```json
+    {
+        "message": "Email verified successfully."
+    }
+    ```
+
+### 2.1. Resend OTP
+
+*   **Endpoint:** `POST /verify-email/resend`
+*   **Headers:**
+    *   `Accept: application/json`
+*   **Body (raw, JSON):**
+
+    ```json
+    {
+        "email": "john.doe@example.com"
+    }
+    ```
+
+*   **Successful Response (200 OK):**
+
+    ```json
+    {
+        "message": "A new OTP has been sent to your email address."
+    }
+    ```
+
+### 3. Login
 
 *   **Endpoint:** `POST /login`
 *   **Headers:**
@@ -96,6 +143,9 @@ The API uses token-based authentication (Laravel Sanctum). To access protected r
             "id": 1,
             "name": "John Doe",
             "email": "john.doe@example.com",
+            "is_admin": false,
+            "email_verified_at": "2026-02-10T01:05:00.000000Z",
+            "is_verified": true,
             // ... other user fields
         }
     }
@@ -126,13 +176,40 @@ The API uses token-based authentication (Laravel Sanctum). To access protected r
 
 ## Email Notification System
 
-The backend system is configured to send email notifications to users and administrators for various actions. Frontend developers should be aware that the following actions will trigger an email:
+The backend system is configured to send email notifications to users and administrators for various actions. These email templates are fully customizable by administrators through the admin dashboard.
 
-*   **User Registration**: A welcome email is sent to the newly registered user.
-*   **User Profile Update**: An email notification is sent to the user whose profile has been updated.
-*   **User Account Deletion**: An email notification is sent to the user whose account has been deleted.
+### 1. Email Triggers
 
-These email templates are fully customizable by administrators through the admin dashboard. The templates support dynamic placeholders (e.g., `{{ user_name }}`, `{{ app_name }}`, `{{ login_link }}`, `{{ user_profile_link }}`) which are automatically replaced with relevant data at the time of sending.
+The following actions currently trigger email notifications:
+
+*   **User Registration**: An OTP code is sent to the user's email for verification.
+*   **Email Verification**: A welcome email is sent after successful OTP verification.
+*   **User Login**: A notification email is sent upon every successful login.
+*   **Password Reset**: A dynamic reset link is sent when a user forgets their password.
+*   **New Match**: Both users receive an email when a match is created between them.
+*   **User Profile Update**: Sent when a user's details are updated.
+*   **User Account Deletion**: Sent just before an account is deleted.
+*   **Profile Completion Reminder**: An automated daily system that reminds users with incomplete profiles to finish them.
+
+### 2. Available Dynamic Placeholders
+
+When editing templates in the Admin Dashboard, you can use the following placeholders. They will be automatically replaced with real data:
+
+| Template Name | Description | Available Placeholders |
+| :--- | :--- | :--- |
+| `otp_verification` | Verification code email | `{{ otp }}`, `{{ user_name }}`, `{{ app_name }}` |
+| `user_welcome` | After email verification | `{{ login_link }}`, `{{ user_name }}`, `{{ app_name }}` |
+| `user_login` | Security alert for login | `{{ login_time }}`, `{{ user_name }}`, `{{ app_name }}` |
+| `forgot_password` | Reset password link | `{{ reset_link }}`, `{{ user_name }}`, `{{ app_name }}` |
+| `user_match` | New match notification | `{{ matched_user_name }}`, `{{ match_link }}`, `{{ user_name }}`, `{{ app_name }}` |
+| `complete_profile_reminder` | Daily automated reminder | `{{ profile_link }}`, `{{ user_name }}`, `{{ app_name }}` |
+| `user_updated` | Profile update alert | `{{ user_profile_link }}`, `{{ user_name }}`, `{{ app_name }}` |
+| `user_deleted` | Farewell/Deletion alert | `{{ user_name }}`, `{{ app_name }}` |
+
+> [!NOTE]
+> `{{ app_name }}` and `{{ year }}` are available in **all** templates regardless of the trigger.
+
+---
 
 ## API Resources
 
@@ -203,3 +280,15 @@ All the following routes are protected and require the `Authorization: Bearer {t
 *   **`GET /messages/{id}`**: Get a specific message.
 *   **`PUT /messages/{id}`**: Update a message (e.g., mark as read).
 *   **`DELETE /messages/{id}`**: Delete a message.
+
+## Admin Endpoints
+
+All admin endpoints require the user to have `is_admin: true` and a valid Bearer token.
+
+### Email Templates
+
+*   **`GET /admin/email-templates`**: List all dynamic email templates.
+*   **`GET /admin/email-templates/{id}`**: Get details of a specific template.
+*   **`POST /admin/email-templates`**: Create a new email template.
+*   **`PUT /admin/email-templates/{id}`**: Update an existing template (subject/body/type).
+*   **`DELETE /admin/email-templates/{id}`**: Delete a template.

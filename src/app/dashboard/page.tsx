@@ -11,6 +11,7 @@ import { useAuth } from '@/context/AuthContext';
 import { matchService } from '@/services/match.service';
 import { messageService } from '@/services/message.service';
 import { Match, Message } from '@/types';
+import { ProfileCompletionBar } from '@/components/dashboard/profile-completion-bar';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -58,12 +59,9 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold font-headline">Welcome back, {user.name.split(' ')[0]}!</h1>
-        <Button asChild variant="outline" size="sm">
-          <Link href="/dashboard/api-test">
-            Test API Endpoints
-          </Link>
-        </Button>
       </div>
+
+      <ProfileCompletionBar />
 
       {/* Stat Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -124,7 +122,7 @@ export default function DashboardPage() {
               <div className="flex-1">
                 <h2 className="text-2xl font-bold font-headline">{user.name}{user.age ? `, ${user.age}` : ''}</h2>
                 <p className="text-muted-foreground">{user.location || 'Location not set'}</p>
-                <p className="mt-4 italic">"{user.bio || 'No bio available.'}"</p>
+                <p className="mt-4 italic">"{user.profile_summary || 'No bio available.'}"</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {user.interests?.map(interest => (
                     <Badge key={interest} variant="secondary">{interest}</Badge>
@@ -172,4 +170,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-

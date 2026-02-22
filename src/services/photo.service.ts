@@ -15,7 +15,7 @@ export interface UpdatePhotoData {
 
 export const photoService = {
     getPhotos: async (): Promise<Photo[]> => {
-        const response = await api.get<Photo[]>('/photos');
+        const response = await api.get<Photo[]>('photos');
         return response.data;
     },
 
@@ -26,7 +26,7 @@ export const photoService = {
         if (data.caption) formData.append('caption', data.caption);
         if (data.is_primary !== undefined) formData.append('is_primary', data.is_primary ? '1' : '0');
 
-        const response = await api.post<Photo>('/photos', formData, {
+        const response = await api.post<Photo>('photos', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -35,7 +35,7 @@ export const photoService = {
     },
 
     getPhoto: async (id: number): Promise<Photo> => {
-        const response = await api.get<Photo>(`/photos/${id}`);
+        const response = await api.get<Photo>(`photos/${id}`);
         return response.data;
     },
 
@@ -45,7 +45,7 @@ export const photoService = {
         if (data.caption) formData.append('caption', data.caption);
         if (data.is_primary !== undefined) formData.append('is_primary', data.is_primary ? '1' : '0');
 
-        const response = await api.post<Photo>(`/photos/${id}`, formData, {
+        const response = await api.post<Photo>(`photos/${id}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }
@@ -54,12 +54,12 @@ export const photoService = {
     },
 
     setPrimary: async (id: number): Promise<{ message: string }> => {
-        const response = await api.post<{ message: string }>(`/photos/${id}/set-primary`);
+        const response = await api.post<{ message: string }>(`photos/${id}/set-primary`);
         return response.data;
     },
 
     deletePhoto: async (id: number): Promise<{ message: string }> => {
-        const response = await api.delete<{ message: string }>(`/photos/${id}`);
+        const response = await api.delete<{ message: string }>(`photos/${id}`);
         return response.data;
     }
 };

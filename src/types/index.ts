@@ -2,6 +2,8 @@ export interface User {
     id: number;
     name: string;
     email: string;
+    email_verified_at?: string;
+    is_verified?: boolean;
     age?: number;
     location?: string;
     occupation?: string;
@@ -9,6 +11,18 @@ export interface User {
     quote?: string;
     profile_summary?: string;
     interests?: string[];
+    phone?: string;
+    height?: string;
+    body_type?: string;
+    eye_color?: string;
+    hair_color?: string;
+    smoking?: string;
+    drinking?: string;
+    drugs?: string;
+    dietary_preferences?: string;
+    exercise_frequency?: string;
+    pet_ownership?: string;
+    religion?: string;
     is_admin: boolean;
     created_at?: string;
     updated_at?: string;
@@ -44,6 +58,15 @@ export interface Preference {
     age_max: number;
     location_radius_km: number;
     desired_interests: string[];
+    gender_preference?: string;
+    height_min?: string;
+    height_max?: string;
+    preferred_body_types?: string[];
+    smoking_preference?: string;
+    drinking_preference?: string;
+    drugs_preference?: string;
+    religion_preference?: string;
+    education_level_preference?: string;
     created_at?: string;
     updated_at?: string;
 }
@@ -67,18 +90,15 @@ export interface Match {
 
 export interface Message {
     id: number;
-    sender_id: number; // api.ts used user_id. message.service.ts used sender_id/receiver_id.
+    sender_id: number;
     receiver_id: number;
-    // api.ts used user_id, title.
-    user_id?: number;
-    title?: string;
-
     content: string;
     is_read: boolean;
-    read_at?: string; // message.service.ts used read_at
     sent_at?: string;
     created_at?: string;
     updated_at?: string;
+    sender?: User;
+    receiver?: User;
 }
 
 export interface AuthResponse {
@@ -101,4 +121,16 @@ export interface RegisterData {
 
 export interface AiAnalysisResponse {
     suggested_improvements: string;
+}
+
+export interface Notification {
+    id: number;
+    user_id: number;
+    type: string;
+    title: string;
+    message: string;
+    link?: string;
+    read_at?: string;
+    created_at?: string;
+    updated_at?: string;
 }

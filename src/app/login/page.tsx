@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -17,6 +18,9 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Logo } from '@/components/shared/logo';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }),
@@ -25,6 +29,8 @@ const formSchema = z.object({
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login, isLoading, isAuthenticated, user } = useAuth();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,12 +39,27 @@ export default function LoginPage() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // This is a frontend-only demo.
-    // In a real app, you'd make an API call to authenticate the user.
-    console.log(values);
-    // Redirect to dashboard on successful "login".
-    router.push('/dashboard');
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      if (!user?.email_verified_at || user?.is_verified === false) {
+        const email = user?.email ? `?email=${encodeURIComponent(user.email)}` : ''
+        router.replace(`/verify-email${email}`)
+      } else {
+        router.replace('/dashboard')
+      }
+    }
+  }, [isLoading, isAuthenticated, user, router])
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await login({ email: values.email, password: values.password });
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Login Failed',
+        description: error?.response?.data?.message || 'Invalid credentials or server error.',
+      });
+    }
   }
 
   return (
@@ -91,7 +112,14 @@ export default function LoginPage() {
                 </Button>
               </div>
               <Button type="submit" className="w-full">
-                Log In
+                {form.formState.isSubmitting || isLoading ? (
+                  <span className="inline-flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Logging In...
+                  </span>
+                ) : (
+                  'Log In'
+                )}
               </Button>
             </form>
           </Form>

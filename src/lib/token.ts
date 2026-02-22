@@ -1,18 +1,30 @@
 export const tokenService = {
     setToken: (token: string) => {
         if (typeof window !== 'undefined') {
-            localStorage.setItem('token', token);
+            try {
+                localStorage.setItem('token', token);
+            } catch (_) {
+                // ignore storage errors
+            }
         }
     },
     getToken: () => {
         if (typeof window !== 'undefined') {
-            return localStorage.getItem('token');
+            try {
+                return localStorage.getItem('token');
+            } catch (_) {
+                return null;
+            }
         }
         return null;
     },
     removeToken: () => {
         if (typeof window !== 'undefined') {
-            localStorage.removeItem('token');
+            try {
+                localStorage.removeItem('token');
+            } catch (_) {
+                // ignore storage errors
+            }
         }
     }
 };

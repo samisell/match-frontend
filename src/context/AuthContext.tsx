@@ -14,7 +14,7 @@ interface AuthContextType {
     login: (data: LoginData) => Promise<void>;
     register: (data: RegisterData) => Promise<void>;
     logout: () => Promise<void>;
-    refreshUser: () => Promise<void>;
+    refreshUser: () => Promise<User | undefined>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,15 +25,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const router = useRouter();
 
     const refreshUser = async () => {
+        setIsLoading(true);
         try {
-            // NOTE: Using authService.getCurrentUser instead of userService.getProfile
-            // because that's where I put the /user endpoint call.
             const currentUser = await authService.getCurrentUser();
             setUser(currentUser);
+            return currentUser; // Add this line
         } catch (error) {
             console.error('Failed to fetch user profile', error);
             setUser(null);
             tokenService.removeToken();
+            throw error; // Add this line
         } finally {
             setIsLoading(false);
         }
@@ -54,7 +55,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             const response: AuthResponse = await authService.login(data);
             tokenService.setToken(response.access_token);
             setUser(response.user);
-            router.push('/dashboard');
+            if (!response.user.email_verified_at || response.user.is_verified === false) {
+                router.push(`/verify-email?email=${encodeURIComponent(response.user.email)}`);
+            } else {
+                router.push('/dashboard');
+            }
         } catch (error) {
             console.error('Login failed', error);
             throw error;
@@ -66,10 +71,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const register = async (data: RegisterData) => {
         setIsLoading(true);
         try {
-            const response: AuthResponse = await authService.register(data);
-            tokenService.setToken(response.access_token);
-            setUser(response.user);
-            router.push('/dashboard');
+            await authService.register(data);
+            router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
         } catch (error) {
             console.error('Registration failed', error);
             throw error;

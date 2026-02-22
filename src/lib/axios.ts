@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import axios, { AxiosError, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
+import { tokenService } from './token';
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://127.0.0.1:8000/api';
 
@@ -15,13 +16,9 @@ const api = axios.create({
 // Request Interceptor
 api.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
-        // You can retrieve the token from localStorage, sessionStorage, or cookies
-        // For this example, we'll assume it's in localStorage under 'token'
-        if (typeof window !== 'undefined') {
-            const token = localStorage.getItem('token');
-            if (token && config.headers) {
-                config.headers.Authorization = `Bearer ${token}`;
-            }
+        const token = tokenService.getToken();
+        if (token && config.headers) {
+            config.headers.Authorization = `Bearer ${token}`;
         }
 
         // Log request for debugging
@@ -51,10 +48,7 @@ api.interceptors.response.use(
         // Handle specific error codes if needed (e.g., 401 Unauthorized)
         if (status === 401) {
             // Clear token and redirect to login if implementing client-side routing
-            if (typeof window !== 'undefined') {
-                localStorage.removeItem('token');
-                // window.location.href = '/login'; // Optional: Redirect to login
-            }
+            tokenService.removeToken();
         }
 
         return Promise.reject(error);

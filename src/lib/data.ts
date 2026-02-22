@@ -32,21 +32,21 @@ export const howItWorksSteps: HowItWorksStep[] = [
 ];
 
 export const whyChooseUsPoints: WhyChooseUsPoint[] = [
-    {
-        title: 'Manual Vetting',
-        description: 'Every profile is reviewed by a real person to ensure quality and authenticity.',
-        icon: UserCheck,
-    },
-    {
-        title: 'Privacy-Focused',
-        description: 'Your profile is only visible to our team and your hand-picked matches. No public browsing.',
-        icon: ShieldCheck,
-    },
-    {
-        title: 'For Serious Relationships',
-        description: 'Our community is for individuals committed to finding a genuine, long-term partnership.',
-        icon: Heart,
-    }
+  {
+    title: 'Manual Vetting',
+    description: 'Every profile is reviewed by a real person to ensure quality and authenticity.',
+    icon: UserCheck,
+  },
+  {
+    title: 'Privacy-Focused',
+    description: 'Your profile is only visible to our team and your hand-picked matches. No public browsing.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'For Serious Relationships',
+    description: 'Our community is for individuals committed to finding a genuine, long-term partnership.',
+    icon: Heart,
+  }
 ];
 
 export const successStories: SuccessStory[] = [
@@ -71,28 +71,28 @@ export const successStories: SuccessStory[] = [
 ];
 
 export const pricingPlans: PricingPlan[] = [
-    {
-        title: 'Discovery',
-        description: 'Start your journey',
-        price: 99,
-        period: 'month',
-        features: ['Detailed Profile Submission', 'Expert Profile Review', 'Consideration for Matches', 'Access to Dashboard'],
-    },
-    {
-        title: 'Connection',
-        description: 'Our most popular plan',
-        price: 249,
-        period: 'month',
-        features: ['All features in Discovery, plus:', 'Guaranteed Match Introductions', 'Personalized Feedback from Matchmaker', 'Priority Profile Status'],
-        featured: true,
-    },
-    {
-        title: 'Partnership',
-        description: 'A dedicated experience',
-        price: 499,
-        period: 'month',
-        features: ['All features in Connection, plus:', 'Dedicated Personal Matchmaker', 'Curated Date Ideas & Planning', 'Monthly Progress Review'],
-    }
+  {
+    title: 'Discovery',
+    description: 'Start your journey',
+    price: 99,
+    period: 'month',
+    features: ['Detailed Profile Submission', 'Expert Profile Review', 'Consideration for Matches', 'Access to Dashboard'],
+  },
+  {
+    title: 'Connection',
+    description: 'Our most popular plan',
+    price: 249,
+    period: 'month',
+    features: ['All features in Discovery, plus:', 'Guaranteed Match Introductions', 'Personalized Feedback from Matchmaker', 'Priority Profile Status'],
+    featured: true,
+  },
+  {
+    title: 'Partnership',
+    description: 'A dedicated experience',
+    price: 499,
+    period: 'month',
+    features: ['All features in Connection, plus:', 'Dedicated Personal Matchmaker', 'Curated Date Ideas & Planning', 'Monthly Progress Review'],
+  }
 ];
 
 export const testimonials: Testimonial[] = [
@@ -196,33 +196,33 @@ export const userMatches: UserProfile[] = [
 ];
 
 export const adminMessages: AdminMessage[] = [
-    {
-        id: 'msg-1',
-        title: 'Welcome to HeartCraft!',
-        content: 'We are thrilled to have you join our community. Our team is now carefully reviewing your profile. We will reach out if we have any questions. Please expect an update within 3-5 business days.',
-        date: '2024-05-20T10:00:00Z',
-        read: false,
-    },
-    {
-        id: 'msg-2',
-        title: 'We have a potential match for you!',
-        content: 'Hi Jane, after careful consideration, we believe we have found an exceptional match for you. Please navigate to your "Matches" page to view the profile of John Smith. We are excited about this potential connection and look forward to hearing your thoughts.',
-        date: '2024-05-25T15:30:00Z',
-        read: false,
-    },
-     {
-        id: 'msg-3',
-        title: 'Next Steps',
-        content: 'We recommend taking some time to review John\'s profile. When you are ready, you can indicate your interest. Should you both wish to proceed, we will facilitate the exchange of contact information. Best of luck!',
-        date: '2024-05-25T15:35:00Z',
-        read: true,
-    }
+  {
+    id: 'msg-1',
+    title: 'Welcome to HeartCraft!',
+    content: 'We are thrilled to have you join our community. Our team is now carefully reviewing your profile. We will reach out if we have any questions. Please expect an update within 3-5 business days.',
+    date: '2024-05-20T10:00:00Z',
+    read: false,
+  },
+  {
+    id: 'msg-2',
+    title: 'We have a potential match for you!',
+    content: 'Hi Jane, after careful consideration, we believe we have found an exceptional match for you. Please navigate to your "Matches" page to view the profile of John Smith. We are excited about this potential connection and look forward to hearing your thoughts.',
+    date: '2024-05-25T15:30:00Z',
+    read: false,
+  },
+  {
+    id: 'msg-3',
+    title: 'Next Steps',
+    content: 'We recommend taking some time to review John\'s profile. When you are ready, you can indicate your interest. Should you both wish to proceed, we will facilitate the exchange of contact information. Best of luck!',
+    date: '2024-05-25T15:35:00Z',
+    read: true,
+  }
 ];
 
 export const dashboardNavItems = [
-    { title: 'Dashboard', href: '/dashboard', icon: LayoutGrid },
-    { title: 'My Profile', href: '/dashboard/profile', icon: FileText },
-    { title: 'My Matches', href: '/dashboard/matches', icon: Heart },
-    { title: 'Messages', href: '/dashboard/messages', icon: MessageSquare },
-    { title: 'Settings', href: '/dashboard/settings', icon: Settings },
+  { title: 'Dashboard', href: '/dashboard', icon: LayoutGrid },
+  { title: 'My Profile', href: '/dashboard/profile', icon: FileText },
+  { title: 'My Matches', href: '/dashboard/matches', icon: Heart },
+  { title: 'Messages', href: '/dashboard/messages', icon: MessageSquare },
+  { title: 'Dating Preferences', href: '/dashboard/settings', icon: Settings },
 ];

@@ -11,22 +11,22 @@ export interface UpdateUserData {
 
 export const userService = {
     getUsers: async (): Promise<User[]> => {
-        const response = await api.get<User[]>('/users');
+        const response = await api.get<User[]>('users');
         return response.data;
     },
 
     getUser: async (id: number): Promise<User> => {
-        const response = await api.get<User>(`/users/${id}`);
+        const response = await api.get<User>(`users/${id}`);
         return response.data;
     },
 
     updateUser: async (id: number, data: UpdateUserData): Promise<User> => {
-        const response = await api.put<User>(`/users/${id}`, data);
+        const response = await api.put<User>(`users/${id}`, data);
         return response.data;
     },
 
     deleteUser: async (id: number): Promise<{ message: string }> => {
-        const response = await api.delete<{ message: string }>(`/users/${id}`);
+        const response = await api.delete<{ message: string }>(`users/${id}`);
         return response.data;
     }
 };

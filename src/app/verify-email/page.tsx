@@ -21,6 +21,7 @@ import { Suspense, useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { authService } from '@/services/auth.service';
+import { useAuth } from '@/context/AuthContext';
 
 const formSchema = z.object({
     code: z.string().min(6, { message: 'Verification code must be at least 6 characters.' }),
@@ -31,8 +32,10 @@ function VerifyEmailForm() {
     const { toast } = useToast();
     const searchParams = useSearchParams();
     const email = searchParams.get('email'); // Optional context if available
+    const { isAuthenticated, refreshUser } = useAuth();
 
     const [isLoading, setIsLoading] = useState(false);
+    const [isResending, setIsResending] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -57,10 +60,25 @@ function VerifyEmailForm() {
 
             toast({
                 title: 'Success',
-                description: 'OTP verified successfully. You can now reset your password or log in.',
+                description: 'OTP verified successfully.',
             });
 
-            router.push('/login');
+            if (isAuthenticated) {
+                const updatedUser = await refreshUser();
+                if (updatedUser?.is_verified) {
+                    router.push('/dashboard');
+                } else {
+                    // Optional: Handle case where refresh fails to confirm verification
+                    toast({
+                        variant: 'destructive',
+                        title: 'Verification Error',
+                        description: 'Could not confirm your verification status. Please try logging in again.',
+                    });
+                    router.push('/login');
+                }
+            } else {
+                router.push('/login');
+            }
 
         } catch (error) {
             console.error('Verification error:', error);
@@ -115,7 +133,38 @@ function VerifyEmailForm() {
                 </Form>
                 <div className="mt-6 text-center text-sm">
                     Didn&apos;t receive the code?{' '}
-                    <Button variant="link" className="p-0 font-semibold text-primary hover:underline h-auto">
+                    <Button
+                        variant="link"
+                        className="p-0 font-semibold text-primary hover:underline h-auto"
+                        disabled={isResending}
+                        onClick={async () => {
+                            if (!email) {
+                                toast({
+                                    variant: 'destructive',
+                                    title: 'Error',
+                                    description: 'Email address is missing.',
+                                });
+                                return;
+                            }
+                            try {
+                                setIsResending(true);
+                                await authService.resendVerification(email);
+                                toast({
+                                    title: 'Code Sent',
+                                    description: 'A new verification code has been sent to your email.',
+                                });
+                            } catch (error) {
+                                toast({
+                                    variant: 'destructive',
+                                    title: 'Error',
+                                    description: 'Could not resend the verification code.',
+                                });
+                            } finally {
+                                setIsResending(false);
+                            }
+                        }}
+                    >
+                        {isResending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                         Resend
                     </Button>
                 </div>
@@ -147,4 +196,3 @@ export default function VerifyEmailPage() {
         </div>
     );
 }
-

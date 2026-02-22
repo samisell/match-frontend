@@ -23,8 +23,10 @@ import { userService } from '@/services/user.service';
 import { photoService } from '@/services/photo.service';
 import { Photo } from '@/types';
 import { useToast } from '@/hooks/use-toast';
-import { Camera, Loader2, Trash2, CheckCircle2 } from 'lucide-react';
+import { Camera, Loader2, Trash2, CheckCircle2, Phone, Ruler, User as UserIcon, Cigarette, Wine, Activity, HeartPulse, Sparkles, Church } from 'lucide-react';
 import Image from 'next/image';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
 
 const profileSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -37,6 +39,18 @@ const profileSchema = z.object({
   interests: z.string().refine(val => val.split(',').filter(s => s.trim()).length >= 1, {
     message: "Please list at least one interest, separated by commas."
   }),
+  phone: z.string().optional(),
+  height: z.string().optional(),
+  body_type: z.string().optional(),
+  eye_color: z.string().optional(),
+  hair_color: z.string().optional(),
+  smoking: z.string().optional(),
+  drinking: z.string().optional(),
+  drugs: z.string().optional(),
+  dietary_preferences: z.string().optional(),
+  exercise_frequency: z.string().optional(),
+  pet_ownership: z.string().optional(),
+  religion: z.string().optional(),
 });
 
 export default function ProfilePage() {
@@ -59,6 +73,18 @@ export default function ProfilePage() {
       quote: '',
       profile_summary: '',
       interests: '',
+      phone: '',
+      height: '',
+      body_type: '',
+      eye_color: '',
+      hair_color: '',
+      smoking: 'no',
+      drinking: 'no',
+      drugs: 'no',
+      dietary_preferences: '',
+      exercise_frequency: 'never',
+      pet_ownership: '',
+      religion: '',
     },
   });
 
@@ -83,8 +109,20 @@ export default function ProfilePage() {
         occupation: user.occupation || '',
         education: user.education || '',
         quote: user.quote || '',
-        profile_summary: user.profile_summary || user.bio || '',
+        profile_summary: user.profile_summary || '',
         interests: user.interests?.join(', ') || '',
+        phone: user.phone || '',
+        height: user.height || '',
+        body_type: user.body_type || '',
+        eye_color: user.eye_color || '',
+        hair_color: user.hair_color || '',
+        smoking: user.smoking || 'no',
+        drinking: user.drinking || 'no',
+        drugs: user.drugs || 'no',
+        dietary_preferences: user.dietary_preferences || '',
+        exercise_frequency: user.exercise_frequency || 'never',
+        pet_ownership: user.pet_ownership || '',
+        religion: user.religion || '',
       });
       fetchPhotos();
     }
@@ -285,6 +323,24 @@ export default function ProfilePage() {
                     )}
                   />
                 </div>
+                <div className="grid gap-2 flex-grow">
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Phone Number</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <Input className="pl-9" placeholder="+1 (555) 000-0000" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -341,6 +397,219 @@ export default function ProfilePage() {
                   )}
                 />
               </div>
+
+              <Separator className="my-6" />
+              <div className="flex items-center gap-2 mb-4">
+                <Ruler className="h-5 w-5 text-primary" />
+                <h3 className="text-lg font-semibold">Physical Attributes</h3>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <FormField
+                  control={form.control}
+                  name="height"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Height</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. 5ft 10in or 178cm" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="body_type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Body Type</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Athletic, Average" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="eye_color"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Eye Color</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Blue, Brown" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="hair_color"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Hair Color</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Blonde, Black" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <Separator className="my-6" />
+              <div className="flex items-center gap-2 mb-4">
+                <Activity className="h-5 w-5 text-primary" />
+                <h3 className="text-lg font-semibold">Lifestyle & Habits</h3>
+              </div>
+              <div className="grid md:grid-cols-3 gap-6">
+                <FormField
+                  control={form.control}
+                  name="smoking"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <Cigarette className="h-4 w-4" /> Smoking
+                      </FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Do you smoke?" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="no">Non-smoker</SelectItem>
+                          <SelectItem value="occasionally">Occasionally</SelectItem>
+                          <SelectItem value="regularly">Regularly</SelectItem>
+                          <SelectItem value="trying_to_quit">Trying to quit</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="drinking"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <Wine className="h-4 w-4" /> Drinking
+                      </FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Do you drink?" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="no">Never / Non-drinker</SelectItem>
+                          <SelectItem value="socially">Socially</SelectItem>
+                          <SelectItem value="occasionally">Occasionally</SelectItem>
+                          <SelectItem value="regularly">Regularly</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="drugs"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <Sparkles className="h-4 w-4" /> Drugs
+                      </FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Do you use drugs?" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="no">Never</SelectItem>
+                          <SelectItem value="occasionally">Occasionally</SelectItem>
+                          <SelectItem value="regularly">Regularly</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <FormField
+                  control={form.control}
+                  name="exercise_frequency"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <HeartPulse className="h-4 w-4" /> Exercise
+                      </FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="How often?" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="never">Never</SelectItem>
+                          <SelectItem value="occasionally">Occasionally</SelectItem>
+                          <SelectItem value="often">Often (2-3 times/week)</SelectItem>
+                          <SelectItem value="daily">Daily</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="dietary_preferences"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Dietary</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Vegan, Halal, None" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="pet_ownership"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pets</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. Dogs, allergic to cats" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="religion"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <Church className="h-4 w-4" /> Religion
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your faith" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <Separator className="my-6" />
 
               <FormField
                 control={form.control}

@@ -19,6 +19,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Logo } from '@/components/shared/logo';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -35,6 +38,8 @@ const formSchema = z.object({
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { register: registerUser, isLoading } = useAuth();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,12 +51,21 @@ export default function RegisterPage() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // This is a frontend-only demo.
-    // In a real app, you'd register the user and then log them in.
-    console.log(values);
-    // Redirect to profile setup after "registration".
-    router.push('/dashboard/profile');
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await registerUser({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        password_confirmation: values.confirmPassword,
+      });
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Registration Failed',
+        description: error?.response?.data?.message || 'Could not create your account.',
+      });
+    }
   }
 
   return (
@@ -147,7 +161,14 @@ export default function RegisterPage() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Create Account
+                {form.formState.isSubmitting || isLoading ? (
+                  <span className="inline-flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Creating Account...
+                  </span>
+                ) : (
+                  'Create Account'
+                )}
               </Button>
             </form>
           </Form>

@@ -13,7 +13,9 @@ import { Badge } from '@/components/ui/badge';
 
 // Extending Match for UI purposes if it doesn't already have user data nested
 interface ExtendedMatch extends Match {
-  matched_user?: User;
+  matched_user?: User & {
+    photos?: Photo[];
+  };
 }
 
 const EmptyState = () => (
@@ -45,10 +47,18 @@ const MatchDetailModal = ({ match }: { match: ExtendedMatch }) => {
       <div className="grid gap-4 py-4">
         <div className="flex flex-col sm:flex-row gap-6">
           <div className="relative w-full sm:w-48 h-64 sm:h-64 shrink-0 rounded-lg overflow-hidden bg-muted">
-            {/* Assuming first photo if multiple, or just fallback if URL not present */}
-            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-              {user.name.charAt(0)}
-            </div>
+            {user.photos && user.photos.length > 0 ? (
+              <Image
+                src={user.photos.find(p => p.is_primary)?.url || user.photos[0].url}
+                alt={user.name}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-4xl text-muted-foreground bg-secondary">
+                {user.name.charAt(0)}
+              </div>
+            )}
           </div>
           <div className="flex-1 space-y-4">
             <div>
@@ -61,7 +71,7 @@ const MatchDetailModal = ({ match }: { match: ExtendedMatch }) => {
             </div>
             <div>
               <h3 className="font-semibold text-sm">About {user.name.split(' ')[0]}</h3>
-              <p className="text-muted-foreground text-sm">{user.profile_summary || user.bio || 'No summary available.'}</p>
+              <p className="text-muted-foreground text-sm">{user.profile_summary || 'No summary available.'}</p>
             </div>
             <div>
               <h3 className="font-semibold text-sm">Interests</h3>
@@ -126,8 +136,19 @@ export default function MatchesPage() {
           {matches.map((match) => (
             <Dialog key={match.id}>
               <Card className="overflow-hidden flex flex-col transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
-                <div className="relative aspect-[4/5] w-full bg-muted flex items-center justify-center text-4xl text-muted-foreground">
-                  {match.matched_user?.name.charAt(0) || 'M'}
+                <div className="relative aspect-[4/5] w-full bg-muted overflow-hidden">
+                  {match.matched_user?.photos && match.matched_user.photos.length > 0 ? (
+                    <Image
+                      src={match.matched_user.photos.find(p => p.is_primary)?.url || match.matched_user.photos[0].url}
+                      alt={match.matched_user.name}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-4xl text-muted-foreground">
+                      {match.matched_user?.name.charAt(0) || 'M'}
+                    </div>
+                  )}
                 </div>
                 <CardHeader className="pb-2">
                   <CardTitle className="font-headline">{match.matched_user?.name || `Match #${match.id}`}{match.matched_user?.age ? `, ${match.matched_user.age}` : ''}</CardTitle>
@@ -150,4 +171,3 @@ export default function MatchesPage() {
     </div>
   );
 }
-

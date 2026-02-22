@@ -30,6 +30,8 @@ import {
 import { Bell, LogOut, Settings, User as UserIcon, ShieldCheck, Mail } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/context/AuthContext'
+import { Loader2 } from 'lucide-react'
+import { ProfileCompletionBar } from '@/components/dashboard/profile-completion-bar'
 
 function DashboardSidebar() {
   const pathname = usePathname()
@@ -93,6 +95,9 @@ function DashboardSidebar() {
             </>
           )}
         </nav>
+        <div className="mt-auto px-4 py-4">
+          <ProfileCompletionBar />
+        </div>
       </SidebarContent>
       <SidebarFooter>
         <DropdownMenu>
@@ -117,7 +122,7 @@ function DashboardSidebar() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild><Link href="/dashboard/profile"><UserIcon className="mr-2 h-4 w-4" /><span>Profile</span></Link></DropdownMenuItem>
-            <DropdownMenuItem asChild><Link href="/dashboard/settings"><Settings className="mr-2 h-4 w-4" /><span>Settings</span></Link></DropdownMenuItem>
+            <DropdownMenuItem asChild><Link href="/dashboard/settings"><Settings className="mr-2 h-4 w-4" /><span>Dating Preferences</span></Link></DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => logout()}><LogOut className="mr-2 h-4 w-4" /><span>Log out</span></DropdownMenuItem>
           </DropdownMenuContent>
@@ -127,6 +132,8 @@ function DashboardSidebar() {
   )
 }
 
+import { NotificationPopover } from '@/components/dashboard/notification-popover'
+
 function DashboardHeader() {
   const router = useRouter()
   const { user, logout } = useAuth()
@@ -135,10 +142,7 @@ function DashboardHeader() {
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <SidebarTrigger className="sm:hidden" />
       <div className="flex-1" />
-      <Button variant="outline" size="icon" className="h-8 w-8">
-        <Bell className="h-4 w-4" />
-        <span className="sr-only">Toggle notifications</span>
-      </Button>
+      <NotificationPopover />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon" className="overflow-hidden rounded-full h-8 w-8">
@@ -151,7 +155,7 @@ function DashboardHeader() {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>Profile</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push('/dashboard/settings')}>Settings</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push('/dashboard/settings')}>Dating Preferences</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => logout()}>Logout</DropdownMenuItem>
         </DropdownMenuContent>
@@ -162,14 +166,36 @@ function DashboardHeader() {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(true)
+  const router = useRouter()
+  const { isAuthenticated, isLoading, user } = useAuth()
+
+  React.useEffect(() => {
+    if (!isLoading) {
+      if (!isAuthenticated) {
+        router.push('/login')
+      } else if (!user?.email_verified_at || user?.is_verified === false) {
+        const email = user?.email ? `?email=${encodeURIComponent(user.email)}` : ''
+        router.push(`/verify-email${email}`)
+      }
+    }
+  }, [isLoading, isAuthenticated, user, router])
 
   return (
-    <SidebarProvider open={open} onOpenChange={setOpen}>
-      <DashboardSidebar />
-      <SidebarInset className={cn('flex flex-col', { 'sm:ml-64': open, 'sm:ml-16': !open })}>
-        <DashboardHeader />
-        <main className="flex-1 p-4 sm:p-6 overflow-auto">{children}</main>
-      </SidebarInset>
-    </SidebarProvider>
+    isLoading || !isAuthenticated || (!user?.email_verified_at || user?.is_verified === false) ? (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <span className="inline-flex items-center gap-2 text-muted-foreground">
+          <Loader2 className="h-5 w-5 animate-spin" />
+          Loading...
+        </span>
+      </div>
+    ) : (
+      <SidebarProvider open={open} onOpenChange={setOpen}>
+        <DashboardSidebar />
+        <SidebarInset className={cn('flex flex-col', { 'sm:ml-64': open, 'sm:ml-16': !open })}>
+          <DashboardHeader />
+          <main className="flex-1 p-4 sm:p-6 overflow-auto">{children}</main>
+        </SidebarInset>
+      </SidebarProvider>
+    )
   )
 }
