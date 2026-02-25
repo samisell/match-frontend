@@ -3,8 +3,10 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 
+import { siteConfig } from '@/lib/config';
+
 export const metadata: Metadata = {
-  title: 'HeartCraft - Meaningful Matches, Curated With Care',
+  title: `${siteConfig.name} - Meaningful Matches, Curated With Care`,
   description: 'A modern matchmaking platform for serious relationships, where profiles are manually vetted and matched by our expert team.',
 };
 

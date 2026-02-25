@@ -49,17 +49,19 @@ export const whyChooseUsPoints: WhyChooseUsPoint[] = [
   }
 ];
 
+import { siteConfig } from '@/lib/config';
+
 export const successStories: SuccessStory[] = [
   {
     names: 'Jessica & Tom',
     matchedDate: 'June 2023',
-    quote: 'The personal touch made all the difference. We were matched on values we both hold dear. Thank you, HeartCraft!',
+    quote: `The personal touch made all the difference. We were matched on values we both hold dear. Thank you, ${siteConfig.name}!`,
     imageId: 'success-1',
   },
   {
     names: 'Maria & David',
     matchedDate: 'September 2023',
-    quote: 'We were both tired of the dating app scene. HeartCraft introduced us in a thoughtful way that felt natural and right.',
+    quote: `We were both tired of the dating app scene. ${siteConfig.name} introduced us in a thoughtful way that felt natural and right.`,
     imageId: 'success-2',
   },
   {
@@ -99,7 +101,7 @@ export const testimonials: Testimonial[] = [
   {
     name: 'Sarah L.',
     info: 'Matched Member',
-    quote: 'HeartCraft\'s approach is a breath of fresh air. It felt safe, personal, and genuinely focused on my happiness. I met someone wonderful.',
+    quote: `${siteConfig.name}'s approach is a breath of fresh air. It felt safe, personal, and genuinely focused on my happiness. I met someone wonderful.`,
     imageId: 'testimonial-1',
   },
   {
@@ -198,7 +200,7 @@ export const userMatches: UserProfile[] = [
 export const adminMessages: AdminMessage[] = [
   {
     id: 'msg-1',
-    title: 'Welcome to HeartCraft!',
+    title: `Welcome to ${siteConfig.name}!`,
     content: 'We are thrilled to have you join our community. Our team is now carefully reviewing your profile. We will reach out if we have any questions. Please expect an update within 3-5 business days.',
     date: '2024-05-20T10:00:00Z',
     read: false,
@@ -225,4 +227,5 @@ export const dashboardNavItems = [
   { title: 'My Matches', href: '/dashboard/matches', icon: Heart },
   { title: 'Messages', href: '/dashboard/messages', icon: MessageSquare },
   { title: 'Dating Preferences', href: '/dashboard/settings', icon: Settings },
+  { title: 'Account Security', href: '/dashboard/security', icon: ShieldCheck },
 ];

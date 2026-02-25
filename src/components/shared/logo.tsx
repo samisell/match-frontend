@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+import { siteConfig } from '@/lib/config';
+
 export function Logo({ className, inHeader = false }: { className?: string; inHeader?: boolean }) {
   return (
     <Link href="/" className={cn('flex items-center gap-2', className)}>
@@ -12,7 +14,7 @@ export function Logo({ className, inHeader = false }: { className?: string; inHe
           inHeader ? 'text-foreground' : 'text-primary-foreground'
         )}
       >
-        HeartCraft
+        {siteConfig.name}
       </span>
     </Link>
   );

@@ -8,6 +8,7 @@ import {
   SidebarFooter,
   SidebarTrigger,
   SidebarInset,
+  useSidebar,
 } from '@/components/ui/sidebar'
 import { Logo } from '@/components/shared/logo'
 import { Button } from '@/components/ui/button'
@@ -36,13 +37,18 @@ import { ProfileCompletionBar } from '@/components/dashboard/profile-completion-
 function DashboardSidebar() {
   const pathname = usePathname()
   const { user, logout } = useAuth()
+  const { setOpen, isMobile } = useSidebar()
 
   const adminNavItems = [
     { title: 'Email Templates', href: '/dashboard/admin/email-templates', icon: Mail },
   ]
 
   return (
-    <Sidebar>
+    <Sidebar
+      collapsible="icon"
+      onMouseEnter={() => !isMobile && setOpen(true)}
+      onMouseLeave={() => !isMobile && setOpen(false)}
+    >
       <SidebarHeader>
         <Logo inHeader />
       </SidebarHeader>
@@ -189,9 +195,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </span>
       </div>
     ) : (
-      <SidebarProvider open={open} onOpenChange={setOpen}>
+      <SidebarProvider defaultOpen={false}>
         <DashboardSidebar />
-        <SidebarInset className={cn('flex flex-col', { 'sm:ml-64': open, 'sm:ml-16': !open })}>
+        <SidebarInset className={cn('flex flex-col', { 'sm:ml-[var(--sidebar-width)]': open, 'sm:ml-[var(--sidebar-width-icon)]': !open })}>
           <DashboardHeader />
           <main className="flex-1 p-4 sm:p-6 overflow-auto">{children}</main>
         </SidebarInset>

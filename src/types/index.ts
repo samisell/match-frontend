@@ -119,6 +119,12 @@ export interface RegisterData {
     password_confirmation: string;
 }
 
+export interface ChangePasswordData {
+    current_password?: string;
+    password?: string;
+    password_confirmation?: string;
+}
+
 export interface AiAnalysisResponse {
     suggested_improvements: string;
 }

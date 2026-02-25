@@ -10,6 +10,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { successStories, howItWorksSteps, whyChooseUsPoints, testimonials, featuredProfiles } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { siteConfig } from '@/lib/config';
 
 export default function Home() {
   // const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
@@ -85,7 +86,7 @@ export default function Home() {
               <div>
                 <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">A Different Kind of Dating</h2>
                 <p className="text-muted-foreground mb-8 text-lg">
-                  We built HeartCraft for individuals seeking serious relationships. Our manual, human-centric approach ensures quality, privacy, and genuine compatibility.
+                  We built {siteConfig.name} for individuals seeking serious relationships. Our manual, human-centric approach ensures quality, privacy, and genuine compatibility.
                 </p>
                 <div className="space-y-6">
                   {whyChooseUsPoints.map((point, index) => {
@@ -123,7 +124,7 @@ export default function Home() {
             <div className="container mx-auto px-4">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-headline font-bold">Meet Our Members</h2>
-                <p className="text-lg text-muted-foreground mt-2">A glimpse into the quality individuals in the HeartCraft community.</p>
+                <p className="text-lg text-muted-foreground mt-2">A glimpse into the quality individuals in the {siteConfig.name} community.</p>
               </div>
               <Carousel opts={{ loop: true }} className="w-full max-w-5xl mx-auto">
                 <CarouselContent>
@@ -171,7 +172,7 @@ export default function Home() {
         <section id="success-stories" className="bg-secondary/50 py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-headline font-bold">Love Stories from HeartCraft</h2>
+              <h2 className="text-3xl md:text-4xl font-headline font-bold">Love Stories from {siteConfig.name}</h2>
               <p className="text-lg text-muted-foreground mt-2">Real couples who found their match through our curated process.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

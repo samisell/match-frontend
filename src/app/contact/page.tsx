@@ -4,6 +4,7 @@ import { ContactForm } from '@/components/forms/contact-form';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { siteConfig } from '@/lib/config';
 
 export default function ContactPage() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'contact-hero');
@@ -15,10 +16,10 @@ export default function ContactPage() {
         {/* Page Header */}
         <section className="relative bg-secondary/50 py-20">
           {heroImage && (
-            <Image 
-              src={heroImage.imageUrl} 
-              alt={heroImage.description} 
-              fill 
+            <Image
+              src={heroImage.imageUrl}
+              alt={heroImage.description}
+              fill
               className="object-cover opacity-20"
               data-ai-hint={heroImage.imageHint}
             />
@@ -49,7 +50,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-bold text-lg">Email</h3>
                       <p className="text-muted-foreground">General Inquiries & Support</p>
-                      <a href="mailto:support@heartcraft.com" className="text-primary hover:underline">support@heartcraft.com</a>
+                      <a href={`mailto:support@${siteConfig.name.toLowerCase().replace(/\s+/g, '')}.com`} className="text-primary hover:underline">support@{siteConfig.name.toLowerCase().replace(/\s+/g, '')}.com</a>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { howItWorksSteps } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { siteConfig } from '@/lib/config';
 
 const faqs = [
   {
@@ -22,7 +23,7 @@ const faqs = [
   },
   {
     question: "Who is this platform for?",
-    answer: "HeartCraft is for commitment-minded individuals, typically professionals, who are tired of the impersonal nature of swipe-based dating apps and are ready to invest in finding a serious, long-term relationship."
+    answer: `${siteConfig.name} is for commitment-minded individuals, typically professionals, who are tired of the impersonal nature of swipe-based dating apps and are ready to invest in finding a serious, long-term relationship.`
   }
 ];
 
@@ -35,7 +36,7 @@ export default function HowItWorksPage() {
       <main className="flex-grow">
         <section className="bg-secondary/50 py-20 text-center">
           <div className="container">
-            <h1 className="text-4xl md:text-5xl font-bold font-headline">How HeartCraft Works</h1>
+            <h1 className="text-4xl md:text-5xl font-bold font-headline">How {siteConfig.name} Works</h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
               A simple, dignified, and effective path to finding your partner.
             </p>
@@ -56,9 +57,9 @@ export default function HowItWorksPage() {
                     <p className="text-muted-foreground text-lg">{step.description}</p>
                   </div>
                   <div className={`flex-1 ${index % 2 === 0 ? 'md:order-2' : 'md:order-1'}`}>
-                     <div className="bg-primary/10 text-primary p-6 rounded-xl flex items-center justify-center aspect-square max-w-xs mx-auto">
-                       <step.icon className="w-24 h-24" />
-                     </div>
+                    <div className="bg-primary/10 text-primary p-6 rounded-xl flex items-center justify-center aspect-square max-w-xs mx-auto">
+                      <step.icon className="w-24 h-24" />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -68,39 +69,39 @@ export default function HowItWorksPage() {
 
         {/* Visual Timeline Section */}
         {visualImage && <section className="py-10">
-            <div className="container">
-                <div className="relative h-48 md:h-96 rounded-xl overflow-hidden shadow-lg">
-                    <Image 
-                        src={visualImage.imageUrl}
-                        alt={visualImage.description}
-                        fill
-                        className="object-cover"
-                        data-ai-hint={visualImage.imageHint}
-                    />
-                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                        <h2 className="text-3xl md:text-5xl font-bold font-headline text-white text-center">Your Journey, Guided by Experts</h2>
-                    </div>
-                </div>
+          <div className="container">
+            <div className="relative h-48 md:h-96 rounded-xl overflow-hidden shadow-lg">
+              <Image
+                src={visualImage.imageUrl}
+                alt={visualImage.description}
+                fill
+                className="object-cover"
+                data-ai-hint={visualImage.imageHint}
+              />
+              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                <h2 className="text-3xl md:text-5xl font-bold font-headline text-white text-center">Your Journey, Guided by Experts</h2>
+              </div>
             </div>
+          </div>
         </section>}
 
         {/* FAQ Section */}
         <section className="py-20">
-            <div className="container max-w-3xl mx-auto">
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold font-headline">Frequently Asked Questions</h2>
-                </div>
-                <Accordion type="single" collapsible className="w-full">
-                    {faqs.map((faq, index) => (
-                        <AccordionItem key={index} value={`item-${index}`}>
-                            <AccordionTrigger className="text-lg text-left font-bold">{faq.question}</AccordionTrigger>
-                            <AccordionContent className="text-muted-foreground text-base">
-                                {faq.answer}
-                            </AccordionContent>
-                        </AccordionItem>
-                    ))}
-                </Accordion>
+          <div className="container max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold font-headline">Frequently Asked Questions</h2>
             </div>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-lg text-left font-bold">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-base">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </section>
 
 
